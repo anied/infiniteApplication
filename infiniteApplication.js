@@ -1,11 +1,20 @@
-function infiniteApplication(fn) {
-	const cachedArgs = {};
-	return function (args, execute) {
-		if (args && typeof args === 'object') {
-			Object.assign(cachedArgs, args);
+function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
+	let cachedArgs;
+	if (useConfigForArgs) {
+		cachedArgs = Object.assign({}, initialArgs[0]);
+	} else {
+		cachedArgs = [...initialArgs];
+	}
+
+	return function (args) {
+		if (arguments.length === 0) {
+			return fn(cachedArgs);
 		}
-		if (execute === true || args === true) { // if args is a boolean true we treat it as an execution
-			fn(cachedArgs);
+
+		if (useConfigForArgs) {
+			Object.assign(cachedArgs, args);
+		} else {
+			cachedArgs.push(...arguments);
 		}
 	}
 }
