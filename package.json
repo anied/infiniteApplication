@@ -1,0 +1,10 @@
+{
+  "name": "infiniteApplication",
+  "version": "0.0.1",
+  "description": "A wrapper to provide an endless interface for partial application.",
+  "main": "infiniteApplication.js",
+  "repository": "https://github.com/anied/infiniteApplication.git",
+  "author": "Alexander Nied <alex.nied@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
