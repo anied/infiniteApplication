@@ -34,11 +34,11 @@
   },
   "babel": {
     "presets": [
-      "@babel/env",
+      ["@babel/env",
       {
         "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, ie 8-11, maintained node versions",
         "useBuiltIns": "usage"
-      }
+      }]
     ]
   }
 }

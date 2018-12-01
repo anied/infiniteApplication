@@ -1,3 +1,11 @@
-test('adds 1 + 2 to equal 3', () => {
-  expect(1+2).toBe(3);
+/* eslint-env jest */
+import infiniteApplication from './infiniteApplication.js';
+
+describe('infiniteApplication', () => {
+	test('It is defined', () => {
+		expect(infiniteApplication).toBeDefined();
+	});
+	test('It is a function', () => {
+		expect(typeof infiniteApplication).toBe('function');
+	});
 });
