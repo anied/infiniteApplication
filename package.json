@@ -15,7 +15,8 @@
     "regenerator-runtime": "^0.13.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@babel/cli": "^7.1.5",
