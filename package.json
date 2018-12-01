@@ -8,9 +8,37 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "jest": "^23.6.0"
+    "@babel/core": "^7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.13.1"
   },
   "scripts": {
     "test": "jest"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/preset-env": "^7.1.6"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": "eslint:recommended"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      {
+        "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, ie 8-11, maintained node versions",
+        "useBuiltIns": "usage"
+      }
+    ]
   }
 }
