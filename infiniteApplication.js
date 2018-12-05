@@ -18,3 +18,5 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 		}
 	}
 }
+
+export default infiniteApplication;
