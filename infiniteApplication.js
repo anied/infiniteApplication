@@ -1,4 +1,9 @@
 function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
+
+	if (typeof fn !== 'function') {
+		throw new Error('infiniteApplication expects to be called with a function as the first argument.');
+	}
+
 	let cachedArgs;
 	if (useConfigForArgs) {
 		cachedArgs = Object.assign({}, initialArgs[0]);
