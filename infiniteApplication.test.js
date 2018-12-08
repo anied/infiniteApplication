@@ -45,9 +45,53 @@ describe('infiniteApplication', () => {
 		});
 	})
 	describe('The wrapped function', () => {
-		xdescribe('Common functionality to both plain and config arg versions', () => {});
-		xdescribe('For plain args (called w/ no second arg)', () => {
-			// expect('Each time it is called with args, they are appended')
+		describe('Common functionality to both plain and config arg versions', () => {
+			const testModule = {
+				testMethod: () => {}
+			};
+			const spy = jest.spyOn(testModule, 'testMethod');
+			afterEach(() => {
+				spy.mockClear();
+			});
+			test('The original function will be called if the wrapped function is called without any args.', () => {
+				const wrappedMethod = infiniteApplication(testModule.testMethod);
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod();
+				expect(spy).toHaveBeenCalled();
+			});
+			test('The original function will not be called if the wrapped function is called with any args (including `undefined` and `null`).', () => {
+				const wrappedMethod = infiniteApplication(testModule.testMethod);
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod(null);
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod(3);
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod('test');
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod({hello: 'world'});
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod(['hello', 'world']);
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod(new Date());
+				expect(spy).not.toHaveBeenCalled();
+				wrappedMethod(true);
+				expect(spy).not.toHaveBeenCalled();
+			});
+		});
+		describe('For the plain args (called w/ no second arg) wrapped fn version', () => {
+			const testFn = function () {
+				return [...arguments];
+			};
+			let wrappedTestFn;
+			beforeEach(() => {
+				wrappedTestFn = infiniteApplication(testFn);
+			});
+			test('It will take single args passed and apply them when the function is finally invoked', () => {
+				wrappedTestFn(3);
+				wrappedTestFn('test');
+				wrappedTestFn(true);
+				expect(wrappedTestFn()).toEqual([3, 'test', true]);
+			});
 		});
 		xdescribe('For config args', () => {});
 	});
