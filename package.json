@@ -31,7 +31,10 @@
       "browser": true,
       "node": true
     },
-    "extends": "eslint:recommended"
+    "extends": "eslint:recommended",
+    "rules": {
+      "semi": [1, "always"]
+    }
   },
   "babel": {
     "presets": [
