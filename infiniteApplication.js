@@ -21,7 +21,7 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 
 	return function (args) {
 		if (arguments.length === 0) {
-			return fn(cachedArgs);
+			return fn.apply(null, cachedArgs);
 		}
 
 		if (useConfigForArgs) {

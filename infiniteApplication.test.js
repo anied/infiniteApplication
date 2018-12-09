@@ -92,6 +92,17 @@ describe('infiniteApplication', () => {
 				wrappedTestFn(true);
 				expect(wrappedTestFn()).toEqual([3, 'test', true]);
 			});
+			test('It will take multiple args passed and apply them when the function is finally invoked', () => {
+				wrappedTestFn(3);
+				wrappedTestFn('test', true);
+				expect(wrappedTestFn()).toEqual([3, 'test', true]);
+			});
+			test('It will take any arguments passed to the initial wrapper beyond the first two and cache them as part of the partial application, and apply them when the function is finally invoked', () => {
+				wrappedTestFn = infiniteApplication(testFn, false, 'apple', 'orange');
+				wrappedTestFn('pear');
+				wrappedTestFn('bear!');
+				expect(wrappedTestFn()).toEqual(['apple', 'orange', 'pear', 'bear!']);
+			});
 		});
 		xdescribe('For config args', () => {});
 	});
