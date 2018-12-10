@@ -19,7 +19,7 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 		cachedArgs = [...initialArgs];
 	}
 
-	return function (args) {
+	const infiniteApplicationWrappedFunction = function (args) {
 		if (arguments.length === 0) {
 			return fn.apply(null, cachedArgs);
 		}
@@ -29,7 +29,11 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 		} else {
 			cachedArgs.push(...arguments);
 		}
-	}
+
+		return infiniteApplicationWrappedFunction;
+	};
+
+	return infiniteApplicationWrappedFunction;
 }
 
 export default infiniteApplication;

@@ -106,7 +106,16 @@ describe('infiniteApplication', () => {
 				wrappedTestFn('bear!');
 				expect(wrappedTestFn()).toEqual(['apple', 'orange', 'pear', 'bear!']);
 			});
+			test('It will return itself when called with new arguments', () => {
+				const fnReturn = wrappedTestFn(3);
+				expect(wrappedTestFn).toBe(fnReturn);
+				expect(fnReturn(false, 'doctor')()).toEqual([3, false, 'doctor']);
+			});
 		});
 		xdescribe('For config args', () => {});
+		xdescribe('Multiple Instances', () => {
+			xtest('Multiple instances of the same type can be maintained without any issue');
+			xtest('Multiple instances of different type can be maintained without any issue');
+		});
 	});
 });
