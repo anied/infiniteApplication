@@ -112,7 +112,51 @@ describe('infiniteApplication', () => {
 				expect(fnReturn(false, 'doctor')()).toEqual([3, false, 'doctor']);
 			});
 		});
-		xdescribe('For config args', () => {});
+		describe('For config args', () => {
+			let testConfigFn = function (argsConfig) {
+				return argsConfig;
+			};
+			let wrappedTestFn;
+			beforeEach(() => {
+				wrappedTestFn = infiniteApplication(testConfigFn, true);
+			});
+			test('If passing the `true` as the second arg to the wrapper, subsequent object args will be cached and applied when the function is finally invoked', () => {
+				wrappedTestFn({main: 'veggie burger'});
+				wrappedTestFn({
+					side: 'french fries',
+					beverage: 'milk shake'
+				});
+				expect(wrappedTestFn()).toEqual({
+					side: 'french fries',
+					beverage: 'milk shake',
+					main: 'veggie burger',
+				});
+			});
+			test('It can take multiple args passed and will extend them in, in order', () => {
+				wrappedTestFn({main: 'veggie burger'}, {side: 'french fries'}, {beverage: 'milk shake'});
+				expect(wrappedTestFn()).toEqual({
+					side: 'french fries',
+					beverage: 'milk shake',
+					main: 'veggie burger',
+				});
+			});
+			test('New args using the same property names will simply override previous values', () => {
+				wrappedTestFn({
+					main: 'veggie burger',
+					side: 'french fries',
+					beverage: 'milk shake'
+				});
+				wrappedTestFn({side: 'cheese curds'});
+				expect(wrappedTestFn()).toEqual({
+					side: 'cheese curds',
+					beverage: 'milk shake',
+					main: 'veggie burger',
+				});
+			});
+			xtest('It will take any arguments passed to the initial wrapper beyond the first two and cache them as part of the partial application, and apply them when the function is finally invoked', () => {});
+			xtest('It will return itself when called with new arguments', () => {});
+			xtest('If passed non-object args, an error will be thrown');
+		});
 		xdescribe('Multiple Instances', () => {
 			xtest('Multiple instances of the same type can be maintained without any issue');
 			xtest('Multiple instances of different type can be maintained without any issue');
