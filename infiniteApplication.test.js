@@ -158,7 +158,7 @@ describe('infiniteApplication', () => {
 			});
 			xtest('It will take any arguments passed to the initial wrapper beyond the first two and cache them as part of the partial application, and apply them when the function is finally invoked', () => {});
 			xtest('It will return itself when called with new arguments', () => {});
-			xtest('If passed non-object args, an error will be thrown');
+			xtest('If passed non-object args, an error will be thrown', () => {});
 		});
 		xdescribe('Multiple Instances', () => {
 			xtest('Multiple instances of the same type can be maintained without any issue');
