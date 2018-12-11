@@ -1,4 +1,5 @@
 /* eslint-env jest */
+/* eslint-disable */
 import infiniteApplication from './infiniteApplication.js';
 
 describe('infiniteApplication', () => {
@@ -118,9 +119,11 @@ describe('infiniteApplication', () => {
 			};
 			let wrappedTestFn;
 			beforeEach(() => {
+				debugger;
 				wrappedTestFn = infiniteApplication(testConfigFn, true);
 			});
 			test('If passing the `true` as the second arg to the wrapper, subsequent object args will be cached and applied when the function is finally invoked', () => {
+				debugger;
 				wrappedTestFn({main: 'veggie burger'});
 				wrappedTestFn({
 					side: 'french fries',

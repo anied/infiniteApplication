@@ -21,7 +21,11 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 
 	const infiniteApplicationWrappedFunction = function (args) {
 		if (arguments.length === 0) {
-			return fn.apply(null, cachedArgs);
+			if (useConfigForArgs) {
+				return fn.call(null, cachedArgs);
+			} else {
+				return fn.apply(null, cachedArgs);
+			}
 		}
 
 		if (useConfigForArgs) {
