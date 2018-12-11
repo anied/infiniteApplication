@@ -14,7 +14,7 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 
 	let cachedArgs;
 	if (useConfigForArgs) {
-		cachedArgs = Object.assign({}, initialArgs[0]);
+		cachedArgs = Object.assign({}, ...initialArgs);
 	} else {
 		cachedArgs = [...initialArgs];
 	}
@@ -29,6 +29,11 @@ function infiniteApplication(fn, useConfigForArgs, ...initialArgs) {
 		}
 
 		if (useConfigForArgs) {
+			for (const arg of arguments) {
+				if(typeof arg !== 'object' || arg === null) {
+					throw new Error('infiniteApplication expects objects as subsequent args when using `useConfigForArgs` mode');
+				}
+			}
 			Object.assign(cachedArgs, ...arguments);
 		} else {
 			cachedArgs.push(...arguments);

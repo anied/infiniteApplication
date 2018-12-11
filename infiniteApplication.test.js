@@ -1,5 +1,4 @@
 /* eslint-env jest */
-/* eslint-disable */
 import infiniteApplication from './infiniteApplication.js';
 
 describe('infiniteApplication', () => {
@@ -119,11 +118,9 @@ describe('infiniteApplication', () => {
 			};
 			let wrappedTestFn;
 			beforeEach(() => {
-				debugger;
 				wrappedTestFn = infiniteApplication(testConfigFn, true);
 			});
 			test('If passing the `true` as the second arg to the wrapper, subsequent object args will be cached and applied when the function is finally invoked', () => {
-				debugger;
 				wrappedTestFn({main: 'veggie burger'});
 				wrappedTestFn({
 					side: 'french fries',
@@ -156,13 +153,45 @@ describe('infiniteApplication', () => {
 					main: 'veggie burger',
 				});
 			});
-			xtest('It will take any arguments passed to the initial wrapper beyond the first two and cache them as part of the partial application, and apply them when the function is finally invoked', () => {});
-			xtest('It will return itself when called with new arguments', () => {});
-			xtest('If passed non-object args, an error will be thrown', () => {});
+			test('It will take any arguments passed to the initial wrapper beyond the first two and cache them as part of the partial application, and apply them when the function is finally invoked', () => {
+				wrappedTestFn = infiniteApplication(testConfigFn, true, {safe: 1627}, {euclid: 1975, keter: 725});
+				wrappedTestFn({thaumiel: 75});
+				expect(wrappedTestFn()).toEqual({
+					safe: 1627,
+					euclid: 1975,
+					keter: 725,
+					thaumiel: 75,
+				});
+			});
+			test('It will return itself when called with new arguments', () => {
+				const fnReturn = wrappedTestFn({light: 'dark'});
+				expect(wrappedTestFn).toBe(fnReturn);
+				expect(fnReturn({up: 'down'})()).toEqual({
+					light: 'dark',
+					up: 'down'
+				});
+			});
+			test('If passed non-object args, an error will be thrown', () => {
+				expect(() => wrappedTestFn(3)).toThrowError(/^infiniteApplication expects objects as subsequent args when using `useConfigForArgs` mode$/);
+			});
 		});
-		xdescribe('Multiple Instances', () => {
-			xtest('Multiple instances of the same type can be maintained without any issue');
-			xtest('Multiple instances of different type can be maintained without any issue');
+		describe('Multiple Instances', () => {
+			test('Multiple instances of the same type can be maintained without any issue', () => {
+				const testFn = function () {
+					return [...arguments];
+				};
+				const testFn2 = function () {
+					return ([...arguments]).join(' ');
+				};
+				const wrappedOne = infiniteApplication(testFn, false, 'King', 'Bidgood\'s');
+				const wrappedTwo = infiniteApplication(testFn2);
+
+				wrappedOne('in', 'the', 'bathtub', 'and', 'he', 'won\'t', 'come', 'out');
+				wrappedTwo('A', 'sick', 'day', 'for', 'amos', 'mcgee');
+
+				expect(wrappedOne()).toEqual(['King', 'Bidgood\'s', 'in', 'the', 'bathtub', 'and', 'he', 'won\'t', 'come', 'out']);
+				expect(wrappedTwo()).toBe('A sick day for amos mcgee');
+			});
 		});
 	});
 });
