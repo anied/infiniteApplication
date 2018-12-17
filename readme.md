@@ -55,15 +55,15 @@ If no argument is passed, the original function passed as `fn` will be executed 
 For example, consider the following function:
 
 ```javascript
-function sayHello(fname, lname, additionalGreeting) {
-    return `Hello${fname ? ` ${fname}` : ''}${lname ? ` ${lname}` : ''}.${additionalGreeting ? ` ${additionalGreeting}` : ''}`;
+function speak(fname, lname, line) {
+    return `${fname}${lname ? ` ${lname}` : ''}: "${line}"`;
 }
 ```
 
 This function takes its arguments separately, so we can omit the `useConfigForArgs` flag and just pass it into `infiniteApplication` to get the single arg wrapped version:
 
 ```javascript
-const wrappedSayHello = infiniteApplication(sayHello);
+const wrappedSpeak = infiniteApplication(speak);
 ```
 
 You now have the ability to call this partially, with any number of non-zero args.  Once you are ready to actually invoke the function with the passed args, simply call the wrapper without any arguments.
@@ -71,29 +71,37 @@ You now have the ability to call this partially, with any number of non-zero arg
 Consider the examples below:
 
 ```javascript
-const wrappedSayHello = infiniteApplication(sayHello);
-wrappedSayHello('Peter');
-wrappedSayHello('Venkman');
-wrappedSayHello('What do you see?');
-wrappedSayHello(); // returns "Hello Peter Venkman. What do you see?"
+const wrappedSpeak = infiniteApplication(speak);
+wrappedSpeak('Peter');
+wrappedSpeak('Venkman');
+wrappedSpeak('What do you see?');
+wrappedSpeak(); // returns "Peter Venkman: "What do you see?""
 ```
 
 ```javascript
-const wrappedSayHello = infiniteApplication(sayHello);
-wrappedSayHello('Ray', 'Stantz');
-wrappedSayHello('This place is great!');
-wrappedSayHello(); //returns "Hello Ray Stanz. This place is great!";
+const wrappedSpeak = infiniteApplication(speak);
+wrappedSpeak('Ray', 'Stantz');
+wrappedSpeak('This place is great!');
+wrappedSpeak(); //returns "Ray Stanz: "This place is great!""
 ```
 
 ```javascript
-const wrappedSayHello = infiniteApplication(sayHello);
-wrappedSayHello('Egon')('Spengler')('I\'d like to take a few samples.')(); // returns "Hello Egon Spengler. I'd like to take a few samples"
+const wrappedSpeak = infiniteApplication(speak);
+wrappedSpeak('Egon')('Spengler')('I\'d like to take a few samples.')(); // returns "Egon Spengler: "I'd like to take a few samples.""
 ```
 
 ```javascript
-const wrappedSayHello = infiniteApplication(sayHello, 'Winston', 'Zeddemore');
-wrappedSayHello('Ray, when someone asks you if you\'re a god, you say "YES"!');
-wrappedSayHello(); // returns "Hello Winston Zeddemore. Ray, when someone asks you if you're a god, you say "YES"!""
+const wrappedSpeak = infiniteApplication(speak, false, 'Winston', 'Zeddemore');
+wrappedSpeak('Ray, when someone asks you if you\'re a god, you say "YES"!');
+wrappedSpeak(); // returns "Winston Zeddemore: "Ray, when someone asks you if you're a god, you say "YES"!"""
+```
+
+```javascript
+const wrappedSpeak = infiniteApplication(speak);
+wrappedSpeak('Slimer');
+wrappedSpeak(undefined);
+wrappedSpeak('Blaaaaaarghargharghhh!!!!!');
+wrappedSpeak(); // return "Slimer: "Blaaaaaarghargharghhh!!!!!""
 ```
 
 #### Config Argument Form
@@ -111,8 +119,41 @@ If no argument is passed, the original function passed as `fn` will be executed 
 For example, consider the following function:
 
 ```javascript
-function sayHello({fname, lname, additionalGreeting}) {
-    return `Hello${fname ? ` ${fname}` : ''}${lname ? ` ${lname}` : ''}.${additionalGreeting ? ` ${additionalGreeting}` : ''}`;
+function speak({fname, lname, line}) {
+    return `${fname}${lname ? ` ${lname}` : ''}: "${line}"`;
 }
+```
+
+_Note that the args are destructured in a single config object._
+
+When we pass this version of `speak` to `infiniteApplication`, we need to pass `true` as the the second `useConfigForArgs` arg:
+
+```javascript
+const wrappedSpeak = infiniteApplication(speak, true);
+```
+
+You now have a wrapped function that can be called wit a config object containing any subset of the possible keys therein.  If a duplicate key is passed, the latest value overrides the last one.
+
+Just as with the separate args form, to invoke the function with the passed args, simply call the wrapper without any arguments.
+
+Consider the examples below:
+
+```javascript
+const wrappedSpeak = infiniteApplication(speak, true);
+wrappedSpeak({fname: "Louis", lname: "Tully"});
+wrappedSpeak({line: "I am The Keymaster!"});
+wrappedSpeak(); // returns "Louis Tully: "I am The Keymaster!""
+```
+
+```javascript
+const wrappedSpeak = infiniteApplication(speak, true, {fname: 'Dana', lname: 'Barrett'});
+wrappedSpeak({fname: 'The GateKeeper'});
+wrappedSpeak({lname: undefined});
+wrappedSpeak('I am The GateKeeper!');
+wrappedSpeak(); // returns "The GateKeeper: "I am The Gatekeeper!""
+```
+
+```javascript
+const choose = infiniteApplication(speak, true, {fname: 'Gozer'}, {line: 'CHOOSE!!!'})(); // assigns choose as "Gozer: "CHOOSE!!!""
 ```
 
