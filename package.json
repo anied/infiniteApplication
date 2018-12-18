@@ -17,6 +17,8 @@
     "regenerator-runtime": "^0.13.1"
   },
   "scripts": {
+    "build": "npx babel infiniteApplication.js --out-file index.js",
+    "prepublishOnly": "yarn test && yarn build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:watch:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
