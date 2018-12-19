@@ -1,12 +1,12 @@
 {
   "name": "infiniteApplication",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A wrapper to provide an endless interface for partial application.",
   "main": "infiniteApplication.js",
   "repository": "https://github.com/anied/infiniteApplication.git",
   "author": "Alexander Nied <alex.nied@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.1.6",
@@ -18,7 +18,10 @@
   },
   "scripts": {
     "build": "npx babel infiniteApplication.js --out-file index.js",
-    "prepublishOnly": "yarn test && yarn build",
+    "prepublishOnly": "yarn test",
+    "preversion": "yarn test && yarn build",
+    "version": "yarn build && git add index.js",
+    "postversion": "git push && git push --tags",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:watch:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
