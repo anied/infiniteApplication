@@ -1,5 +1,5 @@
 {
-  "name": "infiniteApplication",
+  "name": "infinite-application",
   "version": "0.1.0",
   "description": "A wrapper to provide an endless interface for partial application.",
   "main": "infiniteApplication.js",
