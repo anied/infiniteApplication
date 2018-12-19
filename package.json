@@ -1,0 +1,58 @@
+{
+  "name": "infiniteApplication",
+  "version": "0.0.0",
+  "description": "A wrapper to provide an endless interface for partial application.",
+  "main": "infiniteApplication.js",
+  "repository": "https://github.com/anied/infiniteApplication.git",
+  "author": "Alexander Nied <alex.nied@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.13.1"
+  },
+  "scripts": {
+    "build": "npx babel infiniteApplication.js --out-file index.js",
+    "prepublishOnly": "yarn test",
+    "preversion": "yarn test && yarn build",
+    "version": "yarn build && git add index.js",
+    "postversion": "git push && git push --tags",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watch:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
+  },
+  "dependencies": {},
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "semi": [
+        1,
+        "always"
+      ]
+    }
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, ie 8-11, maintained node versions",
+          "useBuiltIns": "usage"
+        }
+      ]
+    ]
+  }
+}
