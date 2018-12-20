@@ -17,13 +17,13 @@ _Coming soon_
 #### ES6
 
 ```javascript
-import infiniteApplication from 'infiniteApplication';
+import infiniteApplication from 'infinite-application';
 ```
 
 #### NodeJS/CommonJS
 
 ```javascript
-const infiniteApplication = require('infiniteApplication');
+const infiniteApplication = require('infinite-application').default;
 ```
 
 ### The `infiniteApplication` Wrapper
