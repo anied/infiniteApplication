@@ -1,6 +1,6 @@
 {
   "name": "infinite-application",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A wrapper to provide an endless interface for partial application.",
   "main": "index.js",
   "repository": "https://github.com/anied/infiniteApplication.git",
