@@ -26,7 +26,9 @@
     "test:watch": "jest --watch",
     "test:watch:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
-  "dependencies": {},
+  "dependencies": {
+    "core-js": "^2.6.1"
+  },
   "eslintConfig": {
     "parserOptions": {
       "ecmaVersion": 6,
