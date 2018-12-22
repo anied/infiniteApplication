@@ -2,6 +2,8 @@
 
 <p align="center"><img src="./logo.png" alt="logo -- purple infinity sign inside of parens"/></p>
 
+[![Build Status](https://travis-ci.org/anied/infiniteApplication.svg?branch=master)](https://travis-ci.org/anied/infiniteApplication)
+
 ## Overview
 
 `infiniteApplication` is a wrapper that provides infinite partial application of a function using variable arity, or a single config object.
