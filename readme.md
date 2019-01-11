@@ -10,7 +10,9 @@
 
 ## Installation
 
-_Coming soon_
+```
+npm i infinite-application
+```
 
 ## Usage
 
