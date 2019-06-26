@@ -13,6 +13,7 @@
     "@babel/preset-env": "^7.2.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.13.1"
   },
@@ -26,7 +27,9 @@
     "test:watch": "jest --watch",
     "test:watch:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
-  "dependencies": {},
+  "dependencies": {
+    "core-js": "2"
+  },
   "eslintConfig": {
     "parserOptions": {
       "ecmaVersion": 6,
@@ -50,9 +53,11 @@
         "@babel/env",
         {
           "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, ie 8-11, maintained node versions",
+          "corejs": "2",
           "useBuiltIns": "usage"
         }
       ]
-    ]
+    ],
+    "plugins": ["add-module-exports"]
   }
 }
