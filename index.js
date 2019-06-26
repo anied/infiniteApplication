@@ -94,3 +94,4 @@ function infiniteApplication(fn, useConfigForArgs) {
 
 var _default = infiniteApplication;
 exports["default"] = _default;
+module.exports = exports.default;
