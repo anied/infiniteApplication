@@ -5,7 +5,7 @@ require("core-js/modules/es6.object.define-property");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 require("core-js/modules/es7.symbol.async-iterator");
 
@@ -69,8 +69,8 @@ function infiniteApplication(fn, useConfigForArgs) {
         _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
           }
         } finally {
           if (_didIteratorError) {
@@ -93,4 +93,4 @@ function infiniteApplication(fn, useConfigForArgs) {
 }
 
 var _default = infiniteApplication;
-exports.default = _default;
+exports["default"] = _default;
